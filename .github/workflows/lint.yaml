@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
   push:
-    branches: [main]
+    branches: [main, bing/ci-udeps]
 
 jobs:
   fmt:
@@ -48,8 +48,11 @@ jobs:
       - name: install rust toolchain
         run: rustup toolchain install nightly-2024-06-10
 
+      - name: install cargo binstall
+        run: cargo install cargo-binstall
+
       - name: install udeps
-        run: cargo install --git https://github.com/est31/cargo-udeps --locked
+        run: cargo binstall cargo-udeps
 
       - name: cargo udeps
         run: cargo udeps
